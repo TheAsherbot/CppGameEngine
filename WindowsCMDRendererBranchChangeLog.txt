@@ -1,0 +1,3 @@
+8/11/2024 2:51 - Asher Jordan: Made a rough draft for the CMD Renderer
+Made a rough CMD render that uses Windows Host Console. You can give a font size, row and columns for the CMD Window. If you are on windows 11 you will need to change the default terminal to "Windows Host Console"
+

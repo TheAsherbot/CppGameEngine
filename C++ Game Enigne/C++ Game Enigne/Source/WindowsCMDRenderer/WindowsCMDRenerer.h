@@ -11,9 +11,9 @@ public:
 
 	void Start();
 
-	void DrawCharacter(const short xPosition, const short yPosition, const char character);
-	void DrawString(const int xPosition, const int yPosition, const std::string text);
-	std::string GetLastErrorAsString();
+	void DrawCharacter(const short xPosition, const short yPosition, const wchar_t character);
+	void DrawString(const short xPosition, const short yPosition, const std::wstring text);
+	void DrawRectangle(const short startXPosition, const short startYPosition, const short endXPosition, const short endYPosition, const wchar_t character);
 
 
 	

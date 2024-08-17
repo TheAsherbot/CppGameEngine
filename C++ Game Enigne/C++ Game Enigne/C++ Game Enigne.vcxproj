@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\Test.cpp" />
     <ClCompile Include="Source\WindowsCMDRenderer\WindowsCMDRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>

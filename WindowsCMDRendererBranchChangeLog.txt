@@ -1,3 +1,7 @@
 8/11/2024 2:51 - Asher Jordan: Made a rough draft for the CMD Renderer
 Made a rough CMD render that uses Windows Host Console. You can give a font size, row and columns for the CMD Window. If you are on windows 11 you will need to change the default terminal to "Windows Host Console"
+8/15/2024 2:51 - Asher Jordan: Functional calculator. Compile error.
+I finished adding a functional Calculator. You can click on the screen with your mouse and it will trigger the buttons. When running the .exe, after the initial test an error will pop up.
+9/18/2024 2:51 - Asher Jordan: Separated "C++ Game Engine" into 2 different Projects.
+Separated the C++ Game Engine Project into 2 projects: Engine, and Game. Engine will build into a .lib fil. Game references the Engine project and will build into the .exe file.
 

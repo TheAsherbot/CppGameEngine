@@ -241,7 +241,7 @@ void HandleButtons()
 
 void OnClear()
 {
-	*currentNumber = 0; 
+	*currentNumber = 0;
 	isOnDecimalNumber = false;
 }
 void OnClearAll()

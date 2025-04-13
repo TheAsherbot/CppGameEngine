@@ -3,4 +3,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Oneoffs\Calculator.h" />
+  </ItemGroup>
 </Project>

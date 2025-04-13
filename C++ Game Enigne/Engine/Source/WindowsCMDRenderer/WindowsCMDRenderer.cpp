@@ -7,7 +7,78 @@
 WindowsCMDRenderer::WindowsCMDRenderer(short rows, short columns, short xFontSize, short yFontSize, void(*Start)(), void(*Update)(float deltaTime)) :
     width(rows), height(columns), fontWidth(xFontSize), fontHeight(yFontSize), OnStart(Start), OnUpdate(Update), consoleHandle(CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL))
 {
+    screenBuffer = new wchar_t[width * height];
+    SetConsoleActiveScreenBuffer(consoleHandle);
+    consolInputHandle = GetStdHandle(STD_INPUT_HANDLE);
 
+    for (int i = 0; i < width * height; i++)
+    {
+        screenBuffer[i] = ' ';
+    }
+
+    // Setting this to min value to prevent code from braking later.
+    SMALL_RECT windowRect = { 0, 0, 1, 1 };
+    SetConsoleWindowInfo(consoleHandle, TRUE, &windowRect);
+
+    CONSOLE_FONT_INFOEX consoleFontInfo;
+    consoleFontInfo.cbSize = sizeof(consoleFontInfo);
+    consoleFontInfo.nFont = 1;
+    consoleFontInfo.dwFontSize.X = fontWidth;
+    consoleFontInfo.dwFontSize.Y = fontHeight;
+    consoleFontInfo.FontFamily = FF_DONTCARE;
+    consoleFontInfo.FontWeight = FW_NORMAL;
+    wcscpy_s(consoleFontInfo.FaceName, L"Consolas");
+
+    SetCurrentConsoleFontEx(consoleHandle, false, &consoleFontInfo);
+
+    COORD buffer = { (short)width, (short)height };
+    SetConsoleScreenBufferSize(consoleHandle, buffer);
+
+    windowRect = { 0, 0, (short)(width - 1), (short)(height - 1) };
+    SetConsoleWindowInfo(consoleHandle, TRUE, &windowRect);
+
+    SetConsoleMode(consolInputHandle, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
+}
+
+WindowsCMDRenderer::WindowsCMDRenderer(void(*Start)(), void(*Update)(float deltaTime)) :
+    width(9), height(14), fontWidth(30), fontHeight(30), OnStart(Start), OnUpdate(Update), consoleHandle(CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL))
+{
+    screenBuffer = new wchar_t[width * height];
+    SetConsoleActiveScreenBuffer(consoleHandle);
+    consolInputHandle = GetStdHandle(STD_INPUT_HANDLE);
+
+    for (int i = 0; i < width * height; i++)
+    {
+        screenBuffer[i] = ' ';
+    }
+
+    // Setting this to min value to prevent code from braking later.
+    SMALL_RECT windowRect = { 0, 0, 1, 1 };
+    SetConsoleWindowInfo(consoleHandle, TRUE, &windowRect);
+
+    CONSOLE_FONT_INFOEX consoleFontInfo;
+    consoleFontInfo.cbSize = sizeof(consoleFontInfo);
+    consoleFontInfo.nFont = 1;
+    consoleFontInfo.dwFontSize.X = fontWidth;
+    consoleFontInfo.dwFontSize.Y = fontHeight;
+    consoleFontInfo.FontFamily = FF_DONTCARE;
+    consoleFontInfo.FontWeight = FW_NORMAL;
+    wcscpy_s(consoleFontInfo.FaceName, L"Consolas");
+
+    SetCurrentConsoleFontEx(consoleHandle, false, &consoleFontInfo);
+
+    COORD buffer = { (short)width, (short)height };
+    SetConsoleScreenBufferSize(consoleHandle, buffer);
+
+    windowRect = { 0, 0, (short)(width - 1), (short)(height - 1) };
+    SetConsoleWindowInfo(consoleHandle, TRUE, &windowRect);
+
+    SetConsoleMode(consolInputHandle, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
+}
+
+WindowsCMDRenderer::WindowsCMDRenderer() :
+    width(9), height(14), fontWidth(30), fontHeight(30), OnStart(nullptr), OnUpdate(nullptr), consoleHandle(CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL))
+{
     screenBuffer = new wchar_t[width * height];
     SetConsoleActiveScreenBuffer(consoleHandle);
     consolInputHandle = GetStdHandle(STD_INPUT_HANDLE);
@@ -259,7 +330,202 @@ void WindowsCMDRenderer::IsButtonPressed(const short startXPosition, const short
     }
 }
 
-
+bool WindowsCMDRenderer::IsKeyPressed(Key key)
+{
+    switch (key)
+    {
+    case WindowsCMDRenderer::A:
+        break;
+    case WindowsCMDRenderer::B:
+        break;
+    case WindowsCMDRenderer::C:
+        break;
+    case WindowsCMDRenderer::D:
+        break;
+    case WindowsCMDRenderer::E:
+        break;
+    case WindowsCMDRenderer::F:
+        break;
+    case WindowsCMDRenderer::G:
+        break;
+    case WindowsCMDRenderer::H:
+        break;
+    case WindowsCMDRenderer::I:
+        break;
+    case WindowsCMDRenderer::J:
+        break;
+    case WindowsCMDRenderer::K:
+        break;
+    case WindowsCMDRenderer::L:
+        break;
+    case WindowsCMDRenderer::M:
+        break;
+    case WindowsCMDRenderer::N:
+        break;
+    case WindowsCMDRenderer::O:
+        break;
+    case WindowsCMDRenderer::P:
+        break;
+    case WindowsCMDRenderer::Q:
+        break;
+    case WindowsCMDRenderer::R:
+        break;
+    case WindowsCMDRenderer::S:
+        break;
+    case WindowsCMDRenderer::T:
+        break;
+    case WindowsCMDRenderer::U:
+        break;
+    case WindowsCMDRenderer::V:
+        break;
+    case WindowsCMDRenderer::W:
+        break;
+    case WindowsCMDRenderer::X:
+        break;
+    case WindowsCMDRenderer::Y:
+        break;
+    case WindowsCMDRenderer::Z:
+        break;
+    case WindowsCMDRenderer::One:
+        break;
+    case WindowsCMDRenderer::Two:
+        break;
+    case WindowsCMDRenderer::THree:
+        break;
+    case WindowsCMDRenderer::Four:
+        break;
+    case WindowsCMDRenderer::Five:
+        break;
+    case WindowsCMDRenderer::Six:
+        break;
+    case WindowsCMDRenderer::Seven:
+        break;
+    case WindowsCMDRenderer::Eight:
+        break;
+    case WindowsCMDRenderer::Nine:
+        break;
+    case WindowsCMDRenderer::Zero:
+        break;
+    case WindowsCMDRenderer::Ctrl:
+        break;
+    case WindowsCMDRenderer::Shift:
+        break;
+    case WindowsCMDRenderer::Alt:
+        break;
+    case WindowsCMDRenderer::Esc:
+        break;
+    case WindowsCMDRenderer::Tab:
+        break;
+    case WindowsCMDRenderer::ExclamationMark:
+        break;
+    case WindowsCMDRenderer::QuestionMark:
+        break;
+    case WindowsCMDRenderer::AtSign:
+        break;
+    case WindowsCMDRenderer::Pound:
+        break;
+    case WindowsCMDRenderer::DollerSign:
+        break;
+    case WindowsCMDRenderer::PercentSign:
+        break;
+    case WindowsCMDRenderer::Carrot:
+        break;
+    case WindowsCMDRenderer::AndSybmle:
+        break;
+    case WindowsCMDRenderer::Star:
+        break;
+    case WindowsCMDRenderer::OpenParinthases:
+        break;
+    case WindowsCMDRenderer::CloseParinthases:
+        break;
+    case WindowsCMDRenderer::Minus:
+        break;
+    case WindowsCMDRenderer::Underscore:
+        break;
+    case WindowsCMDRenderer::Plus:
+        break;
+    case WindowsCMDRenderer::Exquals:
+        break;
+    case WindowsCMDRenderer::Backspace:
+        break;
+    case WindowsCMDRenderer::OpenBrace:
+        break;
+    case WindowsCMDRenderer::CloseBrace:
+        break;
+    case WindowsCMDRenderer::Openbracket:
+        break;
+    case WindowsCMDRenderer::CloseBracket:
+        break;
+    case WindowsCMDRenderer::Pile:
+        break;
+    case WindowsCMDRenderer::BackSlash:
+        break;
+    case WindowsCMDRenderer::ForwardSlash:
+        break;
+    case WindowsCMDRenderer::Collen:
+        break;
+    case WindowsCMDRenderer::SemiCollen:
+        break;
+    case WindowsCMDRenderer::Quotations:
+        break;
+    case WindowsCMDRenderer::Aposraphy:
+        break;
+    case WindowsCMDRenderer::Enter:
+        break;
+    case WindowsCMDRenderer::GraterThanSymble:
+        break;
+    case WindowsCMDRenderer::LessThanSymble:
+        break;
+    case WindowsCMDRenderer::UpArrow:
+        break;
+    case WindowsCMDRenderer::DownArrow:
+        break;
+    case WindowsCMDRenderer::LeftArrow:
+        break;
+    case WindowsCMDRenderer::RightArrow:
+        break;
+    case WindowsCMDRenderer::F1:
+        break;
+    case WindowsCMDRenderer::F2:
+        break;
+    case WindowsCMDRenderer::F3:
+        break;
+    case WindowsCMDRenderer::F4:
+        break;
+    case WindowsCMDRenderer::F5:
+        break;
+    case WindowsCMDRenderer::F6:
+        break;
+    case WindowsCMDRenderer::F7:
+        break;
+    case WindowsCMDRenderer::F8:
+        break;
+    case WindowsCMDRenderer::F9:
+        break;
+    case WindowsCMDRenderer::F10:
+        break;
+    case WindowsCMDRenderer::F11:
+        break;
+    case WindowsCMDRenderer::F12:
+        break;
+    case WindowsCMDRenderer::Pause:
+        break;
+    case WindowsCMDRenderer::Deleate:
+        break;
+    case WindowsCMDRenderer::Insert:
+        break;
+    case WindowsCMDRenderer::Home:
+        break;
+    case WindowsCMDRenderer::PageUp:
+        break;
+    case WindowsCMDRenderer::PageDown:
+        break;
+    case WindowsCMDRenderer::End:
+        break;
+    default:
+        break;
+    }
+}
 
 
 

@@ -158,6 +158,9 @@
       <Project>{0493c0b9-2cfa-42f3-b719-afa380cdace2}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Oneoffs\Calculator.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -167,10 +167,12 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\WindowsCMDRenderer\WindowsCMDRenderer.cpp" />
+    <ClCompile Include="Source\WindowsCMD\WindowsCMDInputManager.cpp" />
+    <ClCompile Include="Source\WindowsCMD\WindowsCMDRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\WindowsCMDRenderer\WindowsCMDRenerer.h" />
+    <ClInclude Include="Source\WindowsCMD\WindowsCMDInputManager.h" />
+    <ClInclude Include="Source\WindowsCMD\WindowsCMDRenerer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

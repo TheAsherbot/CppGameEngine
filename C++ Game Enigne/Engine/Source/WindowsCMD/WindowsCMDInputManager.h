@@ -2,7 +2,6 @@
 #include <iostream>
 #include <Windows.h>
 
-
 struct Vector2
 {
 public:
@@ -21,9 +20,10 @@ public:
 };
 
 
-class WindowsCMDRenderer
+class WindowsCMDInputManager
 {
 public:
+
 	enum Key
 	{
 		A,
@@ -81,13 +81,13 @@ public:
 		Minus,
 		Underscore,
 		Plus,
-		Exquals,
+		Equals,
 		Backspace,
 		OpenBrace,
 		CloseBrace,
 		Openbracket,
 		CloseBracket,
-		Pile,
+		Pipe,
 		BackSlash,
 		ForwardSlash,
 		Collen,
@@ -121,47 +121,18 @@ public:
 		PageDown,
 		End,
 	};
-	
 
+	WindowsCMDInputManager();
+	~WindowsCMDInputManager();
 
-	WindowsCMDRenderer(short rows, short columns, short xFontSize, short yFontSize, void(*Start)(), void(*Update)(float deltaTime));
-	WindowsCMDRenderer(void(*Start)(), void(*Update)(float deltaTime));
-	WindowsCMDRenderer();
-	~WindowsCMDRenderer();
+private:
 
-	void Start();
-
-	void DrawWCharacter(const short xPosition, const short yPosition, const wchar_t character);
-	void DrawCharacter(const short xPosition, const short yPosition, const char character);
-	
-	void DrawWString(const short xPosition, const short yPosition, const std::wstring text);
-	void DrawString(const short xPosition, const short yPosition, const std::string text);
-	
-	void DrawRectangleWCharacter(const short startXPosition, const short startYPosition, const short endXPosition, const short endYPosition, const wchar_t character);
-	void DrawRectangleCharacter(const short startXPosition, const short startYPosition, const short endXPosition, const short endYPosition, const char character);
-
-	void HideCurser();
+	void HideCurser(bool hidden);
 	Vector2 GetMousePosition();
 
 	void IsButtonPressed(const short startXPosition, const short startYPosition, const short endXPosition, const short endYPosition, void(*OnButtonPressed)());
-	
+
 	bool IsKeyPressed(Key key);
-
-	
-private:
-
-	short width;
-	short height;
-
-	short fontWidth;
-	short fontHeight;
-
-	wchar_t* screenBuffer;
-
-	DWORD numberOfCharactersWritten = 0;
-	HANDLE consoleHandle;
-
-
 
 	HANDLE consolInputHandle;
 	DWORD numberOfInputs;
@@ -169,12 +140,102 @@ private:
 	int mouseOldState[5];
 	Mouse mouse[5];
 
-	
-	
-	void(*OnStart)();
-	void(*OnUpdate)(float deltaTime);
+	std::string keyCodes[94] 
+	{
+		"A",
+		"B",
+		"C",
+		"D",
+		"E",
+		"F",
+		"G",
+		"H",
+		"I",
+		"J",
+		"K",
+		"L",
+		"M",
+		"N",
+		"O",
+		"P",
+		"Q",
+		"R",
+		"S",
+		"T",
+		"U",
+		"V",
+		"W",
+		"X",
+		"Y",
+		"Z",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"0",
+		"Ctrl",
+		"Shift",
+		"Alt",
+		"Esc",
+		"Tab",
+		"!",
+		"?",
+		"@",
+		"#",
+		"$",
+		"%",
+		"^",
+		"&",
+		"*",
+		"(",
+		")",
+		"-",
+		"_",
+		"+",
+		"=",
+		"BackSpace",
+		"{",
+		"}",
+		"[",
+		"]",
+		"|",
+		"\\",
+		"/",
+		":",
+		";",
+		"\"",
+		"'",
+		"Enter",
+		">",
+		"<",
+		"UpArrow",
+		"DownArrow",
+		"LeftArrow",
+		"RightArrow",
+		"F1",
+		"F2",
+		"F3",
+		"F4",
+		"F5",
+		"F6",
+		"F7",
+		"F8",
+		"F9",
+		"F10",
+		"F11",
+		"F12",
+		"Pause",
+		"Deleate",
+		"Insert",
+		"Home",
+		"PageUp",
+		"PageDowb",
+		"End",
+	};
 
 };
-
-
-

@@ -10,7 +10,7 @@ public:
 	
 
 
-	WindowsCMDRenderer(short rows, short columns, short xFontSize, short yFontSize, void(*Start)(), void(*Update)(float deltaTime));
+	WindowsCMDRenderer(short rows, short columns, short xFontSize, short yFontSize, void(*Start)(), void(*Update)(float deltaTime), HANDLE* consolInputHandle);
 	~WindowsCMDRenderer();
 
 	void Start();
@@ -24,7 +24,8 @@ public:
 	void DrawRectangleWCharacter(const short startXPosition, const short startYPosition, const short endXPosition, const short endYPosition, const wchar_t character);
 	void DrawRectangleCharacter(const short startXPosition, const short startYPosition, const short endXPosition, const short endYPosition, const char character);
 
-	
+
+	void HideCurser(bool hidden);
 private:
 
 	short width;

@@ -6,7 +6,9 @@
 #include <windows.h>
 #include <cmath>
 
-#include "WindowsCMDRenderer/WindowsCMDRenerer.h"
+#include "WindowsCMD/WindowsCMD.h"
+#include "WindowsCMD/WindowsCMDInputManager.h"
+#include "WindowsCMD/WindowsCMDRenerer.h"
 
 
 enum Operation
@@ -18,6 +20,7 @@ enum Operation
 	Addition,
 };
 
+WindowsCMD* windowsCMD;
 WindowsCMDRenderer* windowsCMDRenderer;
 float number1;
 float number2;
@@ -66,12 +69,16 @@ void StartApplication()
 {
 	std::cout << "HelloWorld\n";
 
-	windowsCMDRenderer = new WindowsCMDRenderer((short)9, (short)14, (short)30, (short)30, &Start, &Update);
+	windowsCMD = new WindowsCMD((short)9, (short)14, (short)30, (short)30, &Start, &Update);
+
+    windowsCMDRenderer = windowsCMD->renderer;
 	// windowsCMDRenderer = new WindowsCMDRenderer(164, 240, 2, 2, Start, Update);
 
-	windowsCMDRenderer->HideCurser();
+	// windowsCMDRenderer->HideCurser();
+	windowsCMD->renderer->HideCurser(true);
 
 	windowsCMDRenderer->Start();
+
 
 	return;
 }
@@ -372,30 +379,30 @@ void OnEqual()
 
 void HandleButtons()
 {
-	windowsCMDRenderer->IsButtonPressed(22, 106, 73, 162, OnClear);
-	windowsCMDRenderer->IsButtonPressed(77, 106, 132, 162, OnClearAll);
-	windowsCMDRenderer->IsButtonPressed(137, 106, 192, 162, OnBackspace);
-	windowsCMDRenderer->IsButtonPressed(197, 106, 248, 162, OnDivide);
+	windowsCMD->inputManager->IsButtonPressed(22, 106, 73, 162, OnClear);
+	windowsCMD->inputManager->IsButtonPressed(77, 106, 132, 162, OnClearAll);
+	windowsCMD->inputManager->IsButtonPressed(137, 106, 192, 162, OnBackspace);
+	windowsCMD->inputManager->IsButtonPressed(197, 106, 248, 162, OnDivide);
 
-	windowsCMDRenderer->IsButtonPressed(22, 166, 73, 222, On7);
-	windowsCMDRenderer->IsButtonPressed(77, 166, 132, 222, On8);
-	windowsCMDRenderer->IsButtonPressed(137, 166, 192, 222, On9);
-	windowsCMDRenderer->IsButtonPressed(197, 166, 248, 222, OnMultiply);
+	windowsCMD->inputManager->IsButtonPressed(22, 166, 73, 222, On7);
+	windowsCMD->inputManager->IsButtonPressed(77, 166, 132, 222, On8);
+	windowsCMD->inputManager->IsButtonPressed(137, 166, 192, 222, On9);
+	windowsCMD->inputManager->IsButtonPressed(197, 166, 248, 222, OnMultiply);
 
-	windowsCMDRenderer->IsButtonPressed(22, 226, 73, 282, On4);
-	windowsCMDRenderer->IsButtonPressed(77, 226, 132, 282, On5);
-	windowsCMDRenderer->IsButtonPressed(137, 226, 192, 282, On6);
-	windowsCMDRenderer->IsButtonPressed(197, 226, 248, 282, OnSubtract);
+	windowsCMD->inputManager->IsButtonPressed(22, 226, 73, 282, On4);
+	windowsCMD->inputManager->IsButtonPressed(77, 226, 132, 282, On5);
+	windowsCMD->inputManager->IsButtonPressed(137, 226, 192, 282, On6);
+	windowsCMD->inputManager->IsButtonPressed(197, 226, 248, 282, OnSubtract);
 
-	windowsCMDRenderer->IsButtonPressed(22, 286, 73, 342, On1);
-	windowsCMDRenderer->IsButtonPressed(77, 286, 132, 342, On2);
-	windowsCMDRenderer->IsButtonPressed(137, 286, 192, 342, On3);
-	windowsCMDRenderer->IsButtonPressed(197, 286, 248, 342, OnAdd);
+	windowsCMD->inputManager->IsButtonPressed(22, 286, 73, 342, On1);
+	windowsCMD->inputManager->IsButtonPressed(77, 286, 132, 342, On2);
+	windowsCMD->inputManager->IsButtonPressed(137, 286, 192, 342, On3);
+	windowsCMD->inputManager->IsButtonPressed(197, 286, 248, 342, OnAdd);
 
-	windowsCMDRenderer->IsButtonPressed(22, 346, 73, 400, OnStore);
-	windowsCMDRenderer->IsButtonPressed(77, 346, 132, 400, On0);
-	windowsCMDRenderer->IsButtonPressed(137, 346, 192, 400, OnDecimal);
-	windowsCMDRenderer->IsButtonPressed(197, 346, 248, 400, OnEqual);
+	windowsCMD->inputManager->IsButtonPressed(22, 346, 73, 400, OnStore);
+	windowsCMD->inputManager->IsButtonPressed(77, 346, 132, 400, On0);
+	windowsCMD->inputManager->IsButtonPressed(137, 346, 192, 400, OnDecimal);
+	windowsCMD->inputManager->IsButtonPressed(197, 346, 248, 400, OnEqual);
 }
 
 

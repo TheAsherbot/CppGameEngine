@@ -4,12 +4,12 @@
 #include "WindowsCMDRenerer.h"
 
 
-WindowsCMDRenderer::WindowsCMDRenderer(short rows, short columns, short xFontSize, short yFontSize, void(*Start)(), void(*Update)(float deltaTime)) :
+WindowsCMDRenderer::WindowsCMDRenderer(short rows, short columns, short xFontSize, short yFontSize, void(*Start)(), void(*Update)(float deltaTime), HANDLE* consolInputHandle) :
     width(rows), height(columns), fontWidth(xFontSize), fontHeight(yFontSize), OnStart(Start), OnUpdate(Update), consoleHandle(CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL))
 {
     screenBuffer = new wchar_t[width * height];
     SetConsoleActiveScreenBuffer(consoleHandle);
-    consolInputHandle = GetStdHandle(STD_INPUT_HANDLE);
+    *consolInputHandle = GetStdHandle(STD_INPUT_HANDLE);
 
     for (int i = 0; i < width * height; i++)
     {
@@ -59,67 +59,7 @@ void WindowsCMDRenderer::Start()
 
 
         
-#pragma region Mouse Input
-        INPUT_RECORD inputRecord[32];
-        // for (int i = 0; i < numberOfInputs; i++)
-        // {
-        //     inputRecord[i] = *new INPUT_RECORD();
-        // }
 
-        GetNumberOfConsoleInputEvents(consolInputHandle, &numberOfInputs);
-
-        if (numberOfInputs > 0)
-        {
-            ReadConsoleInput(consolInputHandle, inputRecord, numberOfInputs, &numberOfInputs);
-        }
-
-        for (int i = 0; i < numberOfInputs; i++)
-        {
-            switch (inputRecord[i].EventType)
-            {
-            case MOUSE_EVENT:
-                switch (inputRecord[i].Event.MouseEvent.dwEventFlags)
-                {
-                case MOUSE_MOVED:
-                    break;
-                case 0:
-                    //                                      5 Possible mouse buttons, 0 = Left, 1 = Right, 2 = Middle, 3 = Side Button 1, 4 = Side Button 2
-                    for (int mouseButton = 0; mouseButton < 5; mouseButton++)
-                    {
-                        mouseNewState[mouseButton] = inputRecord[i].Event.MouseEvent.dwButtonState & (1 << mouseButton);
-                    }
-                    break;
-                }
-                break;
-            }
-        }
-        if (mouse[0].isHeld)
-        {
-            std::cout << 10 << std::endl;
-        }
-        //                                      5 Possible mouse buttons, 0 = Left, 1 = Right, 2 = Middle, 3 = Side Button 1, 4 = Side Button 2
-        for (int mouseButton = 0; mouseButton < 5; mouseButton++)
-        {
-            mouse[mouseButton].isPressed = false;
-            mouse[mouseButton].isReleased = false;
-
-            if (mouseNewState[mouseButton] != mouseOldState[mouseButton])
-            {
-                if (mouseNewState[mouseButton])
-                {
-                    mouse[mouseButton].isPressed = true;
-                    mouse[mouseButton].isHeld = true;
-                }
-                else
-                {
-                    mouse[mouseButton].isReleased = true;
-                    mouse[mouseButton].isHeld = false;
-                }
-            }
-
-            mouseOldState[mouseButton] = mouseNewState[mouseButton];
-        }
-#pragma endregion
 
 
 
@@ -200,12 +140,10 @@ void WindowsCMDRenderer::DrawRectangleCharacter(const short startXPosition, cons
 
 
 
-
-
-std::string Vector2::ToString() const
+void WindowsCMDRenderer::HideCurser(bool hidden)
 {
-    std::string result = "x: " + std::to_string(x) + ", y: " + std::to_string(y);
-    return result;
+    ShowCursor(!hidden);
 }
+
 
 

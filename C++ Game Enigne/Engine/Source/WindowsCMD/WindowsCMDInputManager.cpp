@@ -1,9 +1,15 @@
 #include "WindowsCMDInputManager.h"
 
-void WindowsCMDInputManager::HideCurser(bool hidden)
+WindowsCMDInputManager::WindowsCMDInputManager(HANDLE* consolInputHandle)
 {
-    ShowCursor(hidden);
+    consolInputHandle = consolInputHandle;
 }
+
+WindowsCMDInputManager::~WindowsCMDInputManager()
+{
+
+}
+
 
 Vector2 WindowsCMDInputManager::GetMousePosition()
 {
@@ -63,3 +69,70 @@ void WindowsCMDInputManager::IsButtonPressed(const short startXPosition, const s
 bool WindowsCMDInputManager::IsKeyPressed(Key key)
 {
 }
+
+
+WindowsCMDInputManager::MouseButtonState WindowsCMDInputManager::GetMouseButtonState(WindowsCMDInputManager::MouseButton mouseButton)
+{
+#pragma region Mouse Input
+    INPUT_RECORD inputRecord[32];
+    // for (int i = 0; i < numberOfInputs; i++)
+    // {
+    //     inputRecord[i] = *new INPUT_RECORD();
+    // }
+
+    GetNumberOfConsoleInputEvents(consolInputHandle, &numberOfInputs);
+
+    if (numberOfInputs > 0)
+    {
+        ReadConsoleInput(consolInputHandle, inputRecord, numberOfInputs, &numberOfInputs);
+    }
+
+    for (int i = 0; i < numberOfInputs; i++)
+    {
+        switch (inputRecord[i].EventType)
+        {
+        case MOUSE_EVENT:
+            switch (inputRecord[i].Event.MouseEvent.dwEventFlags)
+            {
+            case MOUSE_MOVED:
+                break;
+            case 0:
+                //                                      5 Possible mouse buttons, 0 = Left, 1 = Right, 2 = Middle, 3 = Side Button 1, 4 = Side Button 2
+                for (int mouseButton = 0; mouseButton < 5; mouseButton++)
+                {
+                    mouseNewState[mouseButton] = inputRecord[i].Event.MouseEvent.dwButtonState & (1 << mouseButton);
+                }
+                break;
+            }
+            break;
+        }
+    }
+    if (mouse[0].isHeld)
+    {
+        std::cout << 10 << std::endl;
+    }
+    //                                      5 Possible mouse buttons, 0 = Left, 1 = Right, 2 = Middle, 3 = Side Button 1, 4 = Side Button 2
+    for (int mouseButton = 0; mouseButton < 5; mouseButton++)
+    {
+        mouse[mouseButton].isPressed = false;
+        mouse[mouseButton].isReleased = false;
+
+        if (mouseNewState[mouseButton] != mouseOldState[mouseButton])
+        {
+            if (mouseNewState[mouseButton])
+            {
+                mouse[mouseButton].isPressed = true;
+                mouse[mouseButton].isHeld = true;
+            }
+            else
+            {
+                mouse[mouseButton].isReleased = true;
+                mouse[mouseButton].isHeld = false;
+            }
+        }
+
+        mouseOldState[mouseButton] = mouseNewState[mouseButton];
+    }
+#pragma endregion
+}
+

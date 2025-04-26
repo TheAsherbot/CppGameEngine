@@ -167,6 +167,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\WindowsCMD\WindowsCMD.h" />
     <ClCompile Include="Source\WindowsCMD\WindowsCMDInputManager.cpp" />
     <ClCompile Include="Source\WindowsCMD\WindowsCMDRenderer.cpp" />
   </ItemGroup>

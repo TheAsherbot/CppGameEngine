@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClCompile Include="Source\WindowsCMD\WindowsCMDRenderer.cpp" />
     <ClCompile Include="Source\WindowsCMD\WindowsCMDInputManager.cpp" />
+    <ClCompile Include="Source\WindowsCMD\WindowsCMD.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\WindowsCMD\WindowsCMDRenerer.h" />

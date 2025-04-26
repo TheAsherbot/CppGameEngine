@@ -121,19 +121,33 @@ public:
 		PageDown,
 		End,
 	};
+	enum MouseButton
+	{
+		Left,
+		Middle,
+		Right,
+		Side1,
+		Side2
+	};
+	enum MouseButtonState
+	{
+		NotPressed,
+		Pressed,
+		Held,
+	};
 
-	WindowsCMDInputManager();
+	WindowsCMDInputManager(HANDLE* consolInputHandle);
 	~WindowsCMDInputManager();
 
-private:
 
-	void HideCurser(bool hidden);
 	Vector2 GetMousePosition();
+	MouseButtonState GetMouseButtonState(MouseButton mouseButton);
 
 	void IsButtonPressed(const short startXPosition, const short startYPosition, const short endXPosition, const short endYPosition, void(*OnButtonPressed)());
 
 	bool IsKeyPressed(Key key);
 
+private:
 	HANDLE consolInputHandle;
 	DWORD numberOfInputs;
 	int mouseNewState[5];
